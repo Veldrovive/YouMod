@@ -5,8 +5,13 @@
 #define TweakName @"YouMod"
 
 #define LOC(x) [tweakBundle localizedStringForKey:x value:nil table:nil]
+// Falls back to the given English text for languages that do not have the key yet
+#define LOCD(x, d) [tweakBundle localizedStringForKey:x value:d table:nil]
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
+
+extern void YouModQueuePresent(UIViewController *presenter);
+extern NSUInteger YouModQueueCount(void);
 
 static const NSInteger TweakSection = 'ytmo';
 
@@ -401,6 +406,18 @@ static NSString *GetCacheSize() { // YTLite - @dayanch96
             BASIC_SWITCH(LOC(@"HIDE_CLIP_BUTTON"), LOC(@"HIDE_CLIP_BUTTON_DESC"), HideClipButton),
             BASIC_SWITCH(LOC(@"HIDE_REMIX_BUTTON"), LOC(@"HIDE_REMIX_BUTTON_DESC"), HideRemixButton),
             BASIC_SWITCH(LOC(@"HIDE_SAVE_BUTTON"), LOC(@"HIDE_SAVE_BUTTON_DESC"), HideSaveButton),
+            BASIC_SWITCH(LOCD(@"CUSTOM_QUEUE", @"Custom queue"), LOCD(@"CUSTOM_QUEUE_DESC", @"Adds YouMod's own video queue that works without Premium. Long-press the Save button under a video, or use a video's menu, to add videos. Queued videos play one after another. App restart is required."), CustomQueue),
+            [YTSettingsSectionItemClass itemWithTitle:LOCD(@"OPEN_QUEUE", @"Open queue")
+                titleDescription:LOCD(@"OPEN_QUEUE_DESC", @"View, reorder and remove the videos in your queue.")
+                accessibilityIdentifier:nil
+                detailTextBlock:^NSString *() {
+                    return [NSString stringWithFormat:@"%lu", (unsigned long)YouModQueueCount()];
+                }
+                selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+                    YouModQueuePresent(settingsViewController);
+                    return YES;
+                }
+            ],
         ];        
         YTSettingsPickerViewController *picker = [[%c(YTSettingsPickerViewController) alloc] initWithNavTitle:LOC(@"PLAYER") pickerSectionTitle:nil rows:rows selectedItemIndex:0 parentResponder:[self parentResponder]];
         [settingsViewController pushViewController:picker];

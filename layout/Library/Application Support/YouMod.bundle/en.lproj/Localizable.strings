@@ -176,6 +176,10 @@
 "HIDE_REMIX_BUTTON_DESC" = "Hide Remix button in the action bar under the video overlay.";
 "HIDE_SAVE_BUTTON" = "Hide Save button";
 "HIDE_SAVE_BUTTON_DESC" = "Hide Save button in the action bar under the video overlay.";
+"CUSTOM_QUEUE" = "Custom queue";
+"CUSTOM_QUEUE_DESC" = "Adds YouMod's own video queue that works without Premium. Long-press the Save button under a video, or use a video's menu, to add videos. Queued videos play one after another. App restart is required.";
+"OPEN_QUEUE" = "Open queue";
+"OPEN_QUEUE_DESC" = "View, reorder and remove the videos in your queue.";
 
 "SHORTS" = "Shorts";
 "HIDE_SHORTS_LIKE_BUTTON" = "Hide Like button";

@@ -2,6 +2,7 @@
 #import "Headers.h"
 
 extern void YouModConfigureDownloadButton(_ASDisplayView *view);
+extern void YouModConfigureQueueButton(_ASDisplayView *view);
 
 // AccessGroupID
 static NSString *accessGroupID() {
@@ -30,6 +31,7 @@ static NSString *accessGroupID() {
 - (void)didMoveToWindow {
     %orig;
     YouModConfigureDownloadButton(self);
+    YouModConfigureQueueButton(self);
     // if (IS_ENABLED(HideShortsShelf) && [self.accessibilityIdentifier isEqualToString:@"eml.shorts-shelf"]) self.hidden = YES;
     if (IS_ENABLED(HideGenMusicShelf) && [self.accessibilityIdentifier isEqualToString:@"feed_nudge.view"]) self.hidden = YES;
     if (IS_ENABLED(HideFeedPost) && [self.accessibilityIdentifier isEqualToString:@"id.ui.backstage.original_post"]) self.hidden = YES;
